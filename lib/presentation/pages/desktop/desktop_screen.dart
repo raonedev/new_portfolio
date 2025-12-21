@@ -46,9 +46,14 @@ class _DesktopState extends State<Desktop> {
         children: [
           _wallpaper(),
           _desktopGrid(),
+          ...openWindows.asMap().entries.map((entry) {
+            return KeyedSubtree(
+              key: ValueKey(entry.value),
+              child: _dialogOverlay(entry.value),
+            );
+          }),
           _topMenuBar(),
           _dock(),
-          ...openWindows.map((appName) => _dialogOverlay(appName)).toList(),
         ],
       ),
     );
@@ -305,12 +310,13 @@ class _DesktopState extends State<Desktop> {
   Widget _dialogOverlay(String appName) {
     return DraggableWindow(
       appName: appName,
-      onBringToFront: () {  // Add this
-      setState(() {
-        openWindows.remove(appName);
-        openWindows.add(appName);
-      });
-    },
+      onBringToFront: () {
+        // Add this
+        setState(() {
+          openWindows.remove(appName);
+          openWindows.add(appName);
+        });
+      },
       app: apps.firstWhere((a) => a.name == appName),
       onClose: () => setState(() => openWindows.remove(appName)),
     );
