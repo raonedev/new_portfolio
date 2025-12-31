@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:aman_protfolio/presentation/pages/apps/calculator/calculator.dart';
+import 'package:aman_protfolio/presentation/pages/apps/musicplayer/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'models/desktop_app.dart';
@@ -13,31 +15,130 @@ class Desktop extends StatefulWidget {
 
 class _DesktopState extends State<Desktop> {
   final List<DesktopApp> apps = [
-    DesktopApp(name: 'Finder', icon: Icons.folder, color: Color(0xFF3B99FC)),
-    DesktopApp(name: 'Safari', icon: Icons.public, color: Color(0xFF0A84FF)),
-    DesktopApp(name: 'Mail', icon: Icons.mail, color: Color(0xFF007AFF)),
-    DesktopApp(name: 'Messages', icon: Icons.message, color: Color(0xFF34C759)),
+    DesktopApp(
+      name: 'Finder',
+      icon: Icons.folder,
+      color: Color(0xFF3B99FC),
+      child: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF3B99FC),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(Icons.folder, size: 32, color: Colors.white),
+                ),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Finder',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    Text(
+                      'Version 1.0',
+                      style: TextStyle(fontSize: 12, color: Colors.black54),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'Welcome to Finder!',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'This is a draggable macOS-style window. You can:\n\n'
+              '• Drag the window by clicking and moving the title bar\n'
+              '• Close the window (red button)\n'
+              '• Minimize the window (yellow button)\n'
+              '• Maximize/restore the window (green button)',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black54,
+                height: 1.6,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    DesktopApp(
+      name: 'Safari',
+      icon: Icons.public,
+      color: Color(0xFF0A84FF),
+      child: Container(),
+    ),
+    DesktopApp(
+      name: 'Mail',
+      icon: Icons.mail,
+      color: Color(0xFF007AFF),
+      child: Container(),
+    ),
+    DesktopApp(
+      name: 'Messages',
+      icon: Icons.message,
+      color: Color(0xFF34C759),
+      child: Container(),
+    ),
     DesktopApp(
       name: 'Photos',
       icon: Icons.photo_library,
       color: Color(0xFFFF9500),
+      child: Container(),
     ),
-    DesktopApp(name: 'Music', icon: Icons.music_note, color: Color(0xFFFF2D55)),
-    DesktopApp(name: 'Notes', icon: Icons.note, color: Color(0xFFFFCC00)),
+    DesktopApp(
+      name: 'Music',
+      icon: Icons.music_note,
+      color: Color(0xFFFF2D55),
+      child: MainScreen(),
+    ),
+    DesktopApp(
+      name: 'Notes',
+      icon: Icons.note,
+      color: Color(0xFFFFCC00),
+      child: Container(),
+    ),
     DesktopApp(
       name: 'Calendar',
       icon: Icons.calendar_today,
       color: Color(0xFFFF3B30),
+      child: Container(),
     ),
     DesktopApp(
       name: 'Settings',
       icon: Icons.settings,
       color: Color(0xFF8E8E93),
+      child: Container(),
+    ),
+    DesktopApp(
+      name: 'Calculator',
+      icon: Icons.calculate,
+      color: Colors.amber,
+      child: CalculatorScreen(),
     ),
   ];
 
   int? hoveredDockIndex;
-  List<String> openWindows = [];
+  List<DesktopApp> openWindows = [];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +149,7 @@ class _DesktopState extends State<Desktop> {
           _desktopGrid(),
           ...openWindows.asMap().entries.map((entry) {
             return KeyedSubtree(
-              key: ValueKey(entry.value),
+              key: ValueKey(entry.value.name),
               child: _dialogOverlay(entry.value),
             );
           }),
@@ -154,8 +255,8 @@ class _DesktopState extends State<Desktop> {
                 child: InkWell(
                   onTap: () {
                     setState(() {
-                      if (!openWindows.contains(app.name)) {
-                        openWindows.add(app.name);
+                      if (!openWindows.any((w) => w.name == app.name)) {
+                        openWindows.add(app);
                       }
                     });
                   },
@@ -273,8 +374,8 @@ class _DesktopState extends State<Desktop> {
       child: GestureDetector(
         onTap: () {
           setState(() {
-            if (!openWindows.contains(apps[index].name)) {
-              openWindows.add(apps[index].name);
+            if (!openWindows.any((w) => w.name == apps[index].name)) {
+              openWindows.add(apps[index]);
             }
           });
         },
@@ -307,18 +408,18 @@ class _DesktopState extends State<Desktop> {
   }
 
   // ---------------- DIALOG OVERLAY ----------------
-  Widget _dialogOverlay(String appName) {
+  Widget _dialogOverlay(DesktopApp app) {
     return DraggableWindow(
-      appName: appName,
+      appName: app.name,
       onBringToFront: () {
-        // Add this
         setState(() {
-          openWindows.remove(appName);
-          openWindows.add(appName);
+          openWindows.removeWhere((w) => w.name == app.name);
+          openWindows.add(app);
         });
       },
-      app: apps.firstWhere((a) => a.name == appName),
-      onClose: () => setState(() => openWindows.remove(appName)),
+      app: app,
+      onClose: () =>setState(() => openWindows.removeWhere((w) => w.name == app.name)),
+      windowSize: app.name=="Calculator"?Size(400, 600):null,
     );
   }
 }

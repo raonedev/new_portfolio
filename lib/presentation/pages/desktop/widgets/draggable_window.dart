@@ -10,6 +10,7 @@ class DraggableWindow extends StatefulWidget {
   final DesktopApp app;
   final VoidCallback onClose;
   final VoidCallback onBringToFront;
+  final Size? windowSize;
 
   const DraggableWindow({
     super.key,
@@ -17,6 +18,7 @@ class DraggableWindow extends StatefulWidget {
     required this.app,
     required this.onClose,
     required this.onBringToFront,
+    this.windowSize
   });
 
   @override
@@ -68,7 +70,7 @@ class _DraggableWindowState extends State<DraggableWindow> {
             MediaQuery.of(context).size.width,
             MediaQuery.of(context).size.height - 28,
           )
-        : windowSize;
+        : widget.windowSize?? windowSize;
 
     return Positioned(
       left: effectivePosition.dx,
@@ -211,75 +213,7 @@ class _DraggableWindowState extends State<DraggableWindow> {
                       ),
                       // Content
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    width: 60,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      color: widget.app.color,
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Icon(
-                                      widget.app.icon,
-                                      size: 32,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.appName,
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black87,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Version 1.0',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black54,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 24),
-                              Text(
-                                'Welcome to ${widget.appName}!',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                'This is a draggable macOS-style window. You can:\n\n'
-                                '• Drag the window by clicking and moving the title bar\n'
-                                '• Close the window (red button)\n'
-                                '• Minimize the window (yellow button)\n'
-                                '• Maximize/restore the window (green button)',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                  height: 1.6,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        child: widget.app.child,
                       ),
                     ],
                   ),
