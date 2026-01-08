@@ -2,8 +2,10 @@ import 'dart:ui';
 import 'package:aman_protfolio/presentation/pages/apps/calculator/calculator.dart';
 import 'package:aman_protfolio/presentation/pages/apps/mail/mail_screen.dart';
 import 'package:aman_protfolio/presentation/pages/apps/musicplayer/screens/main_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../apps/notes/notes.dart';
 import 'models/desktop_app.dart';
 import 'widgets/draggable_window.dart';
 
@@ -18,7 +20,7 @@ class _DesktopState extends State<Desktop> {
   final List<DesktopApp> apps = [
     DesktopApp(
       name: 'Finder',
-      icon: Icons.folder,
+      icon: CupertinoIcons.folder_badge_person_crop,
       color: Color(0xFF3B99FC),
       child: Container(
         padding: EdgeInsets.all(20),
@@ -84,49 +86,49 @@ class _DesktopState extends State<Desktop> {
     ),
     DesktopApp(
       name: 'Safari',
-      icon: Icons.public,
+      icon: CupertinoIcons.globe,
       color: Color(0xFF0A84FF),
       child: Container(),
     ),
     DesktopApp(
       name: 'Mail',
-      icon: Icons.mail,
+      icon: CupertinoIcons.mail,
       color: Color(0xFF007AFF),
       child: MailScreen(),
     ),
     DesktopApp(
       name: 'Messages',
-      icon: Icons.message,
+      icon: CupertinoIcons.chat_bubble,
       color: Color(0xFF34C759),
       child: Container(),
     ),
     DesktopApp(
       name: 'Photos',
-      icon: Icons.photo_library,
+      icon: CupertinoIcons.photo,
       color: Color(0xFFFF9500),
       child: Container(),
     ),
     DesktopApp(
       name: 'Music',
-      icon: Icons.music_note,
+      icon: CupertinoIcons.music_note,
       color: Color(0xFFFF2D55),
       child: MainScreen(),
     ),
     DesktopApp(
       name: 'Notes',
-      icon: Icons.note,
+      icon: CupertinoIcons.pencil_circle,
       color: Color(0xFFFFCC00),
-      child: Container(),
+      child: MacOSNotesScreen(),
     ),
     DesktopApp(
       name: 'Calendar',
-      icon: Icons.calendar_today,
+      icon: CupertinoIcons.calendar,
       color: Color(0xFFFF3B30),
       child: Container(),
     ),
     DesktopApp(
       name: 'Settings',
-      icon: Icons.settings,
+      icon: CupertinoIcons.settings,
       color: Color(0xFF8E8E93),
       child: Container(),
     ),
