@@ -425,7 +425,12 @@ class _DesktopState extends State<Desktop> {
         });
       },
       app: app,
-      onClose: () =>setState(() => openWindows.removeWhere((w) => w.name == app.name)),
+      onClose: () =>setState(() {
+        openWindows.removeWhere((w) => w.name == app.name);
+        if(isAppFullScreen){
+          isAppFullScreen=false;
+        }
+      }),
       windowSize: app.name=="Calculator"?Size(400, 600):null,
       onChanged: (isMaximized) {
         setState(() {
