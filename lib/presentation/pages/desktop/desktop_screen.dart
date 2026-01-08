@@ -5,6 +5,7 @@ import 'package:aman_protfolio/presentation/pages/apps/musicplayer/screens/main_
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../apps/calender/calender.dart';
 import '../apps/notes/notes.dart';
 import 'models/desktop_app.dart';
 import 'widgets/draggable_window.dart';
@@ -124,7 +125,7 @@ class _DesktopState extends State<Desktop> {
       name: 'Calendar',
       icon: CupertinoIcons.calendar,
       color: Color(0xFFFF3B30),
-      child: Container(),
+      child: MacOSCalendarScreen(),
     ),
     DesktopApp(
       name: 'Settings',

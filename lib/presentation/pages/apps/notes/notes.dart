@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -130,7 +131,7 @@ class MacOSNotesScreen extends ConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        'On My Mac',
+                        'On My Notes',
                         style: TextStyle(
                           fontSize: 11,
                           color: Colors.grey[600],
@@ -436,30 +437,10 @@ class _NoteEditorPanelState extends ConsumerState<NoteEditorPanel> {
               ),
               child: Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.format_bold, size: 20),
-                    onPressed: () {},
-                    tooltip: 'Bold',
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.format_italic, size: 20),
-                    onPressed: () {},
-                    tooltip: 'Italic',
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.format_underlined, size: 20),
-                    onPressed: () {},
-                    tooltip: 'Underline',
-                  ),
-                  const SizedBox(width: 16),
-                  IconButton(
-                    icon: const Icon(Icons.checklist, size: 20),
-                    onPressed: () {},
-                    tooltip: 'Checklist',
-                  ),
+                  
                   const Spacer(),
                   IconButton(
-                    icon: const Icon(Icons.delete_outline, size: 20),
+                    icon: const Icon(CupertinoIcons.delete, size: 20,color: Colors.red,),
                     onPressed: () {
                       ref.read(notesProvider.notifier).deleteNote(note.id);
                       ref.read(selectedNoteIdProvider.notifier).state = null;
