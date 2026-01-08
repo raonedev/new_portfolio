@@ -5,8 +5,6 @@ import '../models/song.dart';
 import 'package:http/http.dart' as http;
 
 class JioSaavnApi {
-  // static const String baseUrl = 'https://proxy.cors.sh/https://www.jiosaavn.com/api.php';
-  // static const String baseUrl = 'https://corsproxy.io/?/https://www.jiosaavn.com/api.php';
   static const String baseUrl = 'https://bitter-bird-7816.kumaraman33063.workers.dev/api';
 
   Future<List<Song>> getTrending() async {
