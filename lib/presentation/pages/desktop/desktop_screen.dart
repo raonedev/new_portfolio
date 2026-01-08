@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:aman_protfolio/presentation/pages/apps/calculator/calculator.dart';
+import 'package:aman_protfolio/presentation/pages/apps/mail/mail_screen.dart';
 import 'package:aman_protfolio/presentation/pages/apps/musicplayer/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -91,7 +92,7 @@ class _DesktopState extends State<Desktop> {
       name: 'Mail',
       icon: Icons.mail,
       color: Color(0xFF007AFF),
-      child: Container(),
+      child: MailScreen(),
     ),
     DesktopApp(
       name: 'Messages',

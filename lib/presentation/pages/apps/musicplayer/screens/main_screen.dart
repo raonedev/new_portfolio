@@ -151,8 +151,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 }
 
 // ============= Pages =============
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class NewPage extends StatelessWidget {
+  const NewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -165,8 +165,8 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class NewPage extends ConsumerWidget {
-  const NewPage({super.key});
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -263,11 +263,8 @@ class NewPage extends ConsumerWidget {
           ),
         ),
 
-        if (ref.watch(isPlayingProvider)) Positioned(
-          left: 0,
-          bottom: 0,
-          right: 0,
-          child: MusicPlayerScreen()),
+        if (ref.watch(isPlayingProvider))
+          Positioned(left: 0, bottom: 0, right: 0, child: MusicPlayerScreen()),
       ],
     );
   }
