@@ -18,7 +18,6 @@ class Playlist {
   });
 
   factory Playlist.fromJson(Map<String, dynamic> json) {
-    dev.log(json.toString());
     return Playlist(
       id: json['listid']?.toString() ?? json['id']?.toString() ?? '',
       title: json['listname'] ?? json['title'] ?? '',

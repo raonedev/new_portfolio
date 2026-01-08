@@ -1,3 +1,4 @@
+import 'dart:developer' as dev;
 class Song {
   final String id;
   final String title;
@@ -8,6 +9,7 @@ class Song {
   final String year;
   final String duration;
   final String permaUrl;
+  final String vlink;
 
   Song({
     required this.id,
@@ -19,10 +21,12 @@ class Song {
     required this.year,
     required this.duration,
     required this.permaUrl,
+    required this.vlink,
   });
 
   factory Song.fromJson(Map<String, dynamic> json) {
     final details = json['details'] ?? json;
+    dev.log(details.toString());
     return Song(
       id: details['id'] ?? '',
       title: details['song'] ?? details['title'] ?? '',
@@ -35,6 +39,7 @@ class Song {
       year: details['year']?.toString() ?? '',
       duration: details['duration']?.toString() ?? '0',
       permaUrl: details['perma_url'] ?? '',
+      vlink: details['vlink'] ?? ''
     );
   }
 }

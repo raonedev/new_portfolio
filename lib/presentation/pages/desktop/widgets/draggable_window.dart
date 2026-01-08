@@ -11,6 +11,7 @@ class DraggableWindow extends StatefulWidget {
   final VoidCallback onClose;
   final VoidCallback onBringToFront;
   final Size? windowSize;
+  final void Function(bool? isMaximized) onChanged;
 
   const DraggableWindow({
     super.key,
@@ -18,7 +19,8 @@ class DraggableWindow extends StatefulWidget {
     required this.app,
     required this.onClose,
     required this.onBringToFront,
-    this.windowSize
+    this.windowSize,
+    required this.onChanged
   });
 
   @override
@@ -140,7 +142,7 @@ class _DraggableWindowState extends State<DraggableWindow> {
                             const SizedBox(width: 8),
                             GestureDetector(
                               onTap: () {
-                                setState(() => isMinimized = true);
+                                // setState(() => isMinimized = true);
                               },
                               child: Container(
                                 width: 12,
@@ -165,16 +167,19 @@ class _DraggableWindowState extends State<DraggableWindow> {
                                 setState(() {
                                   if (isMaximized) {
                                     isMaximized = false;
-                                    if (savedPosition != null)
+                                    if (savedPosition != null) {
                                       position = savedPosition!;
-                                    if (savedSize != null)
+                                    }
+                                    if (savedSize != null) {
                                       windowSize = savedSize!;
+                                    }
                                   } else {
                                     isMaximized = true;
                                     savedPosition = position;
                                     savedSize = windowSize;
                                   }
                                 });
+                                widget.onChanged(isMaximized);
                               },
                               child: Container(
                                 width: 12,

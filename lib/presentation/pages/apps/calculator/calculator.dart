@@ -130,6 +130,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     const Color darkGreyColor = Color(0xFF333333);
 
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
           children: <Widget>[

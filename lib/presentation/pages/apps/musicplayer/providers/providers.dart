@@ -7,7 +7,7 @@ import '../services/api_service.dart';
 
 final apiProvider = Provider((ref) => JioSaavnApi());
 
-final trendingSongsProvider = FutureProvider<List<Song>>((ref) async {
+final  trendingSongsProvider = FutureProvider<List<Song>>((ref) async {
   final api = ref.watch(apiProvider);
   return api.getTrending();
 });

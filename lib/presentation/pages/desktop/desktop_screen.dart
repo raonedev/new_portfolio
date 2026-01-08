@@ -140,6 +140,8 @@ class _DesktopState extends State<Desktop> {
   int? hoveredDockIndex;
   List<DesktopApp> openWindows = [];
 
+  bool isAppFullScreen=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,6 +156,7 @@ class _DesktopState extends State<Desktop> {
             );
           }),
           _topMenuBar(),
+          if(!isAppFullScreen)
           _dock(),
         ],
       ),
@@ -420,6 +423,11 @@ class _DesktopState extends State<Desktop> {
       app: app,
       onClose: () =>setState(() => openWindows.removeWhere((w) => w.name == app.name)),
       windowSize: app.name=="Calculator"?Size(400, 600):null,
+      onChanged: (isMaximized) {
+        setState(() {
+          isAppFullScreen=isMaximized??false;
+        });
+      },
     );
   }
 }
