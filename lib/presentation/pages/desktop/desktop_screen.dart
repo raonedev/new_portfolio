@@ -9,7 +9,7 @@ import '../apps/calender/calender.dart';
 import '../apps/finder/pdf_viewer.dart';
 import '../apps/messanger/messanger.dart';
 import '../apps/notes/notes.dart';
-import '../apps/web/wenpage.dart';
+import '../apps/web/webpage.dart';
 import 'models/desktop_app.dart';
 import 'widgets/draggable_window.dart';
 
@@ -27,67 +27,6 @@ class _DesktopState extends State<Desktop> {
       icon: CupertinoIcons.folder_badge_person_crop,
       color: Color(0xFF3B99FC),
       child: PdfViewer(),
-      // child: Container(
-      //   padding: EdgeInsets.all(20),
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       Row(
-      //         children: [
-      //           Container(
-      //             width: 60,
-      //             height: 60,
-      //             decoration: BoxDecoration(
-      //               color: Color(0xFF3B99FC),
-      //               borderRadius: BorderRadius.circular(12),
-      //             ),
-      //             child: Icon(Icons.folder, size: 32, color: Colors.white),
-      //           ),
-      //           const SizedBox(width: 16),
-      //           Column(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             children: [
-      //               Text(
-      //                 'Finder',
-      //                 style: TextStyle(
-      //                   fontSize: 24,
-      //                   fontWeight: FontWeight.bold,
-      //                   color: Colors.black87,
-      //                 ),
-      //               ),
-      //               Text(
-      //                 'Version 1.0',
-      //                 style: TextStyle(fontSize: 12, color: Colors.black54),
-      //               ),
-      //             ],
-      //           ),
-      //         ],
-      //       ),
-      //       const SizedBox(height: 24),
-      //       Text(
-      //         'Welcome to Finder!',
-      //         style: TextStyle(
-      //           fontSize: 16,
-      //           fontWeight: FontWeight.w600,
-      //           color: Colors.black87,
-      //         ),
-      //       ),
-      //       const SizedBox(height: 12),
-      //       Text(
-      //         'This is a draggable macOS-style window. You can:\n\n'
-      //         '• Drag the window by clicking and moving the title bar\n'
-      //         '• Close the window (red button)\n'
-      //         '• Minimize the window (yellow button)\n'
-      //         '• Maximize/restore the window (green button)',
-      //         style: TextStyle(
-      //           fontSize: 14,
-      //           color: Colors.black54,
-      //           height: 1.6,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     ),
     DesktopApp(
       name: 'Safari',
@@ -131,12 +70,12 @@ class _DesktopState extends State<Desktop> {
       color: Color(0xFFFF3B30),
       child: MacOSCalendarScreen(),
     ),
-    DesktopApp(
-      name: 'Settings',
-      icon: CupertinoIcons.settings,
-      color: Color(0xFF8E8E93),
-      child: Container(),
-    ),
+    // DesktopApp(
+    //   name: 'Settings',
+    //   icon: CupertinoIcons.settings,
+    //   color: Color(0xFF8E8E93),
+    //   child: Container(),
+    // ),
     DesktopApp(
       name: 'Calculator',
       icon: Icons.calculate,
