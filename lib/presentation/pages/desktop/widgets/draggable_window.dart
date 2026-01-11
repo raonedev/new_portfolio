@@ -20,7 +20,7 @@ class DraggableWindow extends StatefulWidget {
     required this.onClose,
     required this.onBringToFront,
     this.windowSize,
-    required this.onChanged
+    required this.onChanged,
   });
 
   @override
@@ -72,23 +72,13 @@ class _DraggableWindowState extends State<DraggableWindow> {
             MediaQuery.of(context).size.width,
             MediaQuery.of(context).size.height - 28,
           )
-        : widget.windowSize?? windowSize;
+        : widget.windowSize ?? windowSize;
 
     return Positioned(
       left: effectivePosition.dx,
       top: effectivePosition.dy + 28,
       child: GestureDetector(
         onTapDown: (_) => bringToFront(),
-        onPanUpdate: isMaximized
-            ? null
-            : (details) {
-                setState(() {
-                  position = Offset(
-                    position.dx + details.delta.dx,
-                    position.dy + details.delta.dy,
-                  );
-                });
-              },
         child: Stack(
           children: [
             ClipRRect(
@@ -115,101 +105,120 @@ class _DraggableWindowState extends State<DraggableWindow> {
                   child: Column(
                     children: [
                       // Title Bar
-                      Container(
-                        height: 40,
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        child: Row(
-                          children: [
-                            // Traffic Lights
-                            GestureDetector(
-                              onTap: widget.onClose,
-                              child: Container(
-                                width: 12,
-                                height: 12,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFFF5F57),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.close,
-                                    size: 8,
-                                    color: Colors.black.withValues(alpha: 0.5),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            GestureDetector(
-                              onTap: () {
-                                // setState(() => isMinimized = true);
-                              },
-                              child: Container(
-                                width: 12,
-                                height: 12,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFFEBC2E),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.remove,
-                                    size: 8,
-                                    color: Colors.black.withValues(alpha: 0.5),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            GestureDetector(
-                              onTap: () {
-                                bringToFront();
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onPanUpdate: isMaximized
+                            ? null
+                            : (details) {
                                 setState(() {
-                                  if (isMaximized) {
-                                    isMaximized = false;
-                                    if (savedPosition != null) {
-                                      position = savedPosition!;
-                                    }
-                                    if (savedSize != null) {
-                                      windowSize = savedSize!;
-                                    }
-                                  } else {
-                                    isMaximized = true;
-                                    savedPosition = position;
-                                    savedSize = windowSize;
-                                  }
+                                  position = Offset(
+                                    position.dx + details.delta.dx,
+                                    position.dy + details.delta.dy,
+                                  );
                                 });
-                                widget.onChanged(isMaximized);
                               },
-                              child: Container(
-                                width: 12,
-                                height: 12,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF28C840),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    isMaximized
-                                        ? Icons.fullscreen_exit
-                                        : Icons.fullscreen,
-                                    size: 8,
-                                    color: Colors.black.withValues(alpha: 0.5),
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: Row(
+                            children: [
+                              // Traffic Lights
+                              GestureDetector(
+                                onTap: widget.onClose,
+                                child: Container(
+                                  width: 12,
+                                  height: 12,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFFF5F57),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 8,
+                                      color: Colors.black.withValues(
+                                        alpha: 0.5,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Spacer(),
-                            Text(
-                              widget.appName,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
+                              const SizedBox(width: 8),
+                              GestureDetector(
+                                onTap: () {
+                                  // setState(() => isMinimized = true);
+                                },
+                                child: Container(
+                                  width: 12,
+                                  height: 12,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFFEBC2E),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.remove,
+                                      size: 8,
+                                      color: Colors.black.withValues(
+                                        alpha: 0.5,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                            Spacer(),
-                          ],
+                              const SizedBox(width: 8),
+                              GestureDetector(
+                                onTap: () {
+                                  bringToFront();
+                                  setState(() {
+                                    if (isMaximized) {
+                                      isMaximized = false;
+                                      if (savedPosition != null) {
+                                        position = savedPosition!;
+                                      }
+                                      if (savedSize != null) {
+                                        windowSize = savedSize!;
+                                      }
+                                    } else {
+                                      isMaximized = true;
+                                      savedPosition = position;
+                                      savedSize = windowSize;
+                                    }
+                                  });
+                                  widget.onChanged(isMaximized);
+                                },
+                                child: Container(
+                                  width: 12,
+                                  height: 12,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF28C840),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      isMaximized
+                                          ? Icons.fullscreen_exit
+                                          : Icons.fullscreen,
+                                      size: 8,
+                                      color: Colors.black.withValues(
+                                        alpha: 0.5,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Spacer(),
+                              Text(
+                                widget.appName,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Spacer(),
+                            ],
+                          ),
                         ),
                       ),
                       Divider(
@@ -217,9 +226,7 @@ class _DraggableWindowState extends State<DraggableWindow> {
                         color: Colors.grey.withValues(alpha: 0.3),
                       ),
                       // Content
-                      Expanded(
-                        child: widget.app.child,
-                      ),
+                      Expanded(child: widget.app.child),
                     ],
                   ),
                 ),

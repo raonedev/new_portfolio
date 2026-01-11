@@ -6,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../apps/calender/calender.dart';
+import '../apps/messanger/messanger.dart';
 import '../apps/notes/notes.dart';
+import '../apps/web/wenpage.dart';
 import 'models/desktop_app.dart';
 import 'widgets/draggable_window.dart';
 
@@ -89,7 +91,7 @@ class _DesktopState extends State<Desktop> {
       name: 'Safari',
       icon: CupertinoIcons.globe,
       color: Color(0xFF0A84FF),
-      child: Container(),
+      child: SearchEngineScreen(),
     ),
     DesktopApp(
       name: 'Mail',
@@ -101,7 +103,7 @@ class _DesktopState extends State<Desktop> {
       name: 'Messages',
       icon: CupertinoIcons.chat_bubble,
       color: Color(0xFF34C759),
-      child: Container(),
+      child: MacOSMessengerScreen(),
     ),
     DesktopApp(
       name: 'Photos',
@@ -144,7 +146,7 @@ class _DesktopState extends State<Desktop> {
   int? hoveredDockIndex;
   List<DesktopApp> openWindows = [];
 
-  bool isAppFullScreen=false;
+  bool isAppFullScreen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -160,8 +162,7 @@ class _DesktopState extends State<Desktop> {
             );
           }),
           _topMenuBar(),
-          if(!isAppFullScreen)
-          _dock(),
+          if (!isAppFullScreen) _dock(),
         ],
       ),
     );
@@ -425,16 +426,16 @@ class _DesktopState extends State<Desktop> {
         });
       },
       app: app,
-      onClose: () =>setState(() {
+      onClose: () => setState(() {
         openWindows.removeWhere((w) => w.name == app.name);
-        if(isAppFullScreen){
-          isAppFullScreen=false;
+        if (isAppFullScreen) {
+          isAppFullScreen = false;
         }
       }),
-      windowSize: app.name=="Calculator"?Size(400, 600):null,
+      windowSize: app.name == "Calculator" ? Size(400, 600) : null,
       onChanged: (isMaximized) {
         setState(() {
-          isAppFullScreen=isMaximized??false;
+          isAppFullScreen = isMaximized ?? false;
         });
       },
     );

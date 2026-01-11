@@ -35,14 +35,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         _shouldResetNumber = true;
       } else if (buttonText == ".") {
         if (_shouldResetNumber) {
-           _output = "0.";
-           _shouldResetNumber = false;
+          _output = "0.";
+          _shouldResetNumber = false;
         } else if (!_output.contains(".")) {
           _output = _output + buttonText;
         }
       } else if (buttonText == "=") {
         _num2 = double.tryParse(_output) ?? 0;
-        
+
         switch (_operand) {
           case "+":
             _output = (_num1 + _num2).toString();
@@ -57,15 +57,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             _output = (_num1 / _num2).toString();
             break;
         }
-        
+
         _operand = "";
-        _shouldResetNumber = true; 
-        
+        _shouldResetNumber = true;
+
         // Remove decimal if it's .0
         if (_output.endsWith(".0")) {
           _output = _output.substring(0, _output.length - 2);
         }
-
       } else if (buttonText == "+/-") {
         if (_output != "0") {
           if (_output.startsWith("-")) {
@@ -109,13 +108,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             backgroundColor: bgColor,
             foregroundColor: txtColor,
             shape: flex > 1 ? const StadiumBorder() : const CircleBorder(),
-            padding: const EdgeInsets.all(22),
-            elevation: 0, 
+            padding: const EdgeInsets.all(18),
+            elevation: 0,
           ),
           onPressed: () => _buttonPressed(text),
           child: Text(
             text,
-            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
           ),
         ),
       ),
@@ -138,7 +137,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             Expanded(
               child: Container(
                 alignment: Alignment.bottomRight,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerRight,
@@ -155,17 +157,29 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             ),
 
             // --- Button Rows ---
-            
+
             // Row 1
             Row(
               children: [
-                _buildButton("AC", color: lightGreyColor, textColor: Colors.black),
-                _buildButton("+/-", color: lightGreyColor, textColor: Colors.black),
-                _buildButton("%", color: lightGreyColor, textColor: Colors.black),
+                _buildButton(
+                  "AC",
+                  color: lightGreyColor,
+                  textColor: Colors.black,
+                ),
+                _buildButton(
+                  "+/-",
+                  color: lightGreyColor,
+                  textColor: Colors.black,
+                ),
+                _buildButton(
+                  "%",
+                  color: lightGreyColor,
+                  textColor: Colors.black,
+                ),
                 _buildButton("÷", color: orangeColor),
               ],
             ),
-            
+
             // Row 2
             Row(
               children: [
@@ -175,7 +189,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 _buildButton("x", color: orangeColor),
               ],
             ),
-            
+
             // Row 3
             Row(
               children: [
@@ -185,7 +199,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 _buildButton("-", color: orangeColor),
               ],
             ),
-            
+
             // Row 4
             Row(
               children: [
@@ -195,7 +209,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 _buildButton("+", color: orangeColor),
               ],
             ),
-            
+
             // Row 5 (0 spans 2 spaces)
             Row(
               children: [
@@ -204,7 +218,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 _buildButton("=", color: orangeColor),
               ],
             ),
-            const SizedBox(height: 10), 
+            const SizedBox(height: 10),
           ],
         ),
       ),
