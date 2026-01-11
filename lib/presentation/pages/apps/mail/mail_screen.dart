@@ -37,7 +37,7 @@ class _MailScreenState extends State<MailScreen> {
 
     try {
       if (await canLaunchUrl(emailUrl)) {
-        await launchUrl(emailUrl);
+        await launchUrl(emailUrl, mode: LaunchMode.externalApplication);
       } else {
         _showError('Could not launch email client');
       }
@@ -48,10 +48,7 @@ class _MailScreenState extends State<MailScreen> {
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.red,
-      ),
+      SnackBar(content: Text(message), backgroundColor: Colors.red),
     );
   }
 
@@ -82,10 +79,7 @@ class _MailScreenState extends State<MailScreen> {
                     foregroundColor: const Color(0xFF007AFF),
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                   ),
-                  child: const Text(
-                    'Cancel',
-                    style: TextStyle(fontSize: 17),
-                  ),
+                  child: const Text('Cancel', style: TextStyle(fontSize: 17)),
                 ),
                 const Spacer(),
                 const Text(
@@ -145,9 +139,7 @@ class _MailScreenState extends State<MailScreen> {
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: 'your.email@example.com',
-                                hintStyle: TextStyle(
-                                  color: Color(0xFFC7C7CC),
-                                ),
+                                hintStyle: TextStyle(color: Color(0xFFC7C7CC)),
                                 isDense: true,
                                 contentPadding: EdgeInsets.zero,
                               ),
@@ -231,9 +223,7 @@ class _MailScreenState extends State<MailScreen> {
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: 'Subject',
-                                hintStyle: TextStyle(
-                                  color: Color(0xFFC7C7CC),
-                                ),
+                                hintStyle: TextStyle(color: Color(0xFFC7C7CC)),
                                 isDense: true,
                                 contentPadding: EdgeInsets.zero,
                               ),
@@ -254,9 +244,7 @@ class _MailScreenState extends State<MailScreen> {
                     // Message Body
                     Container(
                       constraints: const BoxConstraints(minHeight: 400),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
+                      decoration: const BoxDecoration(color: Colors.white),
                       padding: const EdgeInsets.all(16),
                       child: TextFormField(
                         controller: _bodyController,
@@ -269,9 +257,7 @@ class _MailScreenState extends State<MailScreen> {
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Message',
-                          hintStyle: TextStyle(
-                            color: Color(0xFFC7C7CC),
-                          ),
+                          hintStyle: TextStyle(color: Color(0xFFC7C7CC)),
                           contentPadding: EdgeInsets.zero,
                         ),
                         validator: (value) {
@@ -295,9 +281,7 @@ class _MailScreenState extends State<MailScreen> {
   Widget _buildFieldContainer({required Widget child}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-      ),
+      decoration: const BoxDecoration(color: Colors.white),
       child: child,
     );
   }

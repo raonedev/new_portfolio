@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MacOSMessengerScreen extends StatefulWidget {
@@ -11,7 +10,7 @@ class MacOSMessengerScreen extends StatefulWidget {
 
 class _MacOSMessengerScreenState extends State<MacOSMessengerScreen> {
   final TextEditingController _controller = TextEditingController();
-  final String phoneNumber = "919999999999";
+  final String phoneNumber = "919729034130";
 
   void _sendToWhatsApp() async {
     final text = Uri.encodeComponent(_controller.text);
@@ -76,7 +75,7 @@ class _MacOSMessengerScreenState extends State<MacOSMessengerScreen> {
         child: Column(
           children: [
             Text(
-              "To: +91 99999 99999",
+              "To: +91 972903 4130",
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 color: CupertinoColors.systemGrey,
@@ -132,7 +131,7 @@ class _MacOSMessengerScreenState extends State<MacOSMessengerScreen> {
             Expanded(
               child: CupertinoTextField(
                 controller: _controller,
-                placeholder: "iMessage",
+                placeholder: "Enter here your text",
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
                   vertical: 8,
