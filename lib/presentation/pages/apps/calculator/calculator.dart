@@ -50,7 +50,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           case "-":
             _output = (_num1 - _num2).toString();
             break;
-          case "x":
+          case "×":
             _output = (_num1 * _num2).toString();
             break;
           case "÷":
@@ -186,7 +186,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 _buildButton("7", color: darkGreyColor),
                 _buildButton("8", color: darkGreyColor),
                 _buildButton("9", color: darkGreyColor),
-                _buildButton("x", color: orangeColor),
+                _buildButton("×", color: orangeColor),
               ],
             ),
 
