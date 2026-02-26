@@ -1,6 +1,15 @@
 import 'dart:ui';
+import 'package:aman_protfolio/presentation/pages/apps/calculator/calculator.dart';
+import 'package:aman_protfolio/presentation/pages/apps/mail/mail_screen.dart';
+import 'package:aman_protfolio/presentation/pages/apps/musicplayer/screens/main_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../apps/calender/calender.dart';
+import '../apps/finder/pdf_viewer.dart';
+import '../apps/messanger/messanger.dart';
+import '../apps/notes/notes.dart';
+import '../apps/web/webpage.dart';
 import 'models/desktop_app.dart';
 import 'widgets/draggable_window.dart';
 
@@ -13,31 +22,72 @@ class Desktop extends StatefulWidget {
 
 class _DesktopState extends State<Desktop> {
   final List<DesktopApp> apps = [
-    DesktopApp(name: 'Finder', icon: Icons.folder, color: Color(0xFF3B99FC)),
-    DesktopApp(name: 'Safari', icon: Icons.public, color: Color(0xFF0A84FF)),
-    DesktopApp(name: 'Mail', icon: Icons.mail, color: Color(0xFF007AFF)),
-    DesktopApp(name: 'Messages', icon: Icons.message, color: Color(0xFF34C759)),
+    DesktopApp(
+      name: 'Finder',
+      icon: CupertinoIcons.folder_badge_person_crop,
+      color: Color(0xFF3B99FC),
+      child: PdfViewer(),
+    ),
+    DesktopApp(
+      name: 'Safari',
+      icon: CupertinoIcons.globe,
+      color: Color(0xFF0A84FF),
+      child: SearchEngineScreen(),
+    ),
+    DesktopApp(
+      name: 'Mail',
+      icon: CupertinoIcons.mail,
+      color: Color(0xFF007AFF),
+      child: MailScreen(),
+    ),
+    DesktopApp(
+      name: 'Messages',
+      icon: CupertinoIcons.chat_bubble,
+      color: Color(0xFF34C759),
+      child: MacOSMessengerScreen(),
+    ),
     DesktopApp(
       name: 'Photos',
-      icon: Icons.photo_library,
+      icon: CupertinoIcons.photo,
       color: Color(0xFFFF9500),
+      child: Container(),
     ),
-    DesktopApp(name: 'Music', icon: Icons.music_note, color: Color(0xFFFF2D55)),
-    DesktopApp(name: 'Notes', icon: Icons.note, color: Color(0xFFFFCC00)),
+    DesktopApp(
+      name: 'Music',
+      icon: CupertinoIcons.music_note,
+      color: Color(0xFFFF2D55),
+      child: MainScreen(),
+    ),
+    DesktopApp(
+      name: 'Notes',
+      icon: CupertinoIcons.pencil_circle,
+      color: Color(0xFFFFCC00),
+      child: MacOSNotesScreen(),
+    ),
     DesktopApp(
       name: 'Calendar',
-      icon: Icons.calendar_today,
+      icon: CupertinoIcons.calendar,
       color: Color(0xFFFF3B30),
+      child: MacOSCalendarScreen(),
     ),
+    // DesktopApp(
+    //   name: 'Settings',
+    //   icon: CupertinoIcons.settings,
+    //   color: Color(0xFF8E8E93),
+    //   child: Container(),
+    // ),
     DesktopApp(
-      name: 'Settings',
-      icon: Icons.settings,
-      color: Color(0xFF8E8E93),
+      name: 'Calculator',
+      icon: Icons.calculate,
+      color: Colors.amber,
+      child: CalculatorScreen(),
     ),
   ];
 
   int? hoveredDockIndex;
-  List<String> openWindows = [];
+  List<DesktopApp> openWindows = [];
+
+  bool isAppFullScreen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +98,12 @@ class _DesktopState extends State<Desktop> {
           _desktopGrid(),
           ...openWindows.asMap().entries.map((entry) {
             return KeyedSubtree(
-              key: ValueKey(entry.value),
+              key: ValueKey(entry.value.name),
               child: _dialogOverlay(entry.value),
             );
           }),
           _topMenuBar(),
-          _dock(),
+          if (!isAppFullScreen) _dock(),
         ],
       ),
     );
@@ -154,8 +204,8 @@ class _DesktopState extends State<Desktop> {
                 child: InkWell(
                   onTap: () {
                     setState(() {
-                      if (!openWindows.contains(app.name)) {
-                        openWindows.add(app.name);
+                      if (!openWindows.any((w) => w.name == app.name)) {
+                        openWindows.add(app);
                       }
                     });
                   },
@@ -273,8 +323,8 @@ class _DesktopState extends State<Desktop> {
       child: GestureDetector(
         onTap: () {
           setState(() {
-            if (!openWindows.contains(apps[index].name)) {
-              openWindows.add(apps[index].name);
+            if (!openWindows.any((w) => w.name == apps[index].name)) {
+              openWindows.add(apps[index]);
             }
           });
         },
@@ -307,18 +357,28 @@ class _DesktopState extends State<Desktop> {
   }
 
   // ---------------- DIALOG OVERLAY ----------------
-  Widget _dialogOverlay(String appName) {
+  Widget _dialogOverlay(DesktopApp app) {
     return DraggableWindow(
-      appName: appName,
+      appName: app.name,
       onBringToFront: () {
-        // Add this
         setState(() {
-          openWindows.remove(appName);
-          openWindows.add(appName);
+          openWindows.removeWhere((w) => w.name == app.name);
+          openWindows.add(app);
         });
       },
-      app: apps.firstWhere((a) => a.name == appName),
-      onClose: () => setState(() => openWindows.remove(appName)),
+      app: app,
+      onClose: () => setState(() {
+        openWindows.removeWhere((w) => w.name == app.name);
+        if (isAppFullScreen) {
+          isAppFullScreen = false;
+        }
+      }),
+      windowSize: app.name == "Calculator" ? Size(400, 600) : null,
+      onChanged: (isMaximized) {
+        setState(() {
+          isAppFullScreen = isMaximized ?? false;
+        });
+      },
     );
   }
 }
