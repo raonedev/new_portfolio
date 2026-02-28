@@ -9,14 +9,14 @@ import '../providers/providers.dart';
 import '../services/player_service.dart';
 import 'music_player.dart';
 
-class MainScreen extends ConsumerStatefulWidget {
-  const MainScreen({super.key});
+class MainMusicScreen extends ConsumerStatefulWidget {
+  const MainMusicScreen({super.key});
 
   @override
-  ConsumerState<MainScreen> createState() => _MainScreenState();
+  ConsumerState<MainMusicScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends ConsumerState<MainScreen> {
+class _MainScreenState extends ConsumerState<MainMusicScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = const [HomePage(), NewPage(), RadioPage()];

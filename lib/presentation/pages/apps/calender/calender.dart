@@ -253,11 +253,10 @@ class _MonthView extends ConsumerWidget {
         ),
 
         calendarBuilders: CalendarBuilders(
-          defaultBuilder: (_, day, __) =>
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: _DayCell(day: day, isCompact: compact),
-              ),
+          defaultBuilder: (_, day, __) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _DayCell(day: day, isCompact: compact),
+          ),
         ),
       ),
     );

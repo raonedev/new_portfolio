@@ -25,7 +25,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         shouldReset = false;
       } else if (label == "+/-") {
         if (display != "0") {
-          display = display.startsWith('-') ? display.substring(1) : '-$display';
+          display = display.startsWith('-')
+              ? display.substring(1)
+              : '-$display';
         }
       } else if (label == "%") {
         double val = double.tryParse(display) ?? 0;
@@ -38,12 +40,21 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         if (firstOperand != null && operator != null) {
           double secondOperand = double.tryParse(display) ?? 0;
           switch (operator) {
-            case "÷": display = (firstOperand! / secondOperand).toString(); break;
-            case "×": display = (firstOperand! * secondOperand).toString(); break;
-            case "-": display = (firstOperand! - secondOperand).toString(); break;
-            case "+": display = (firstOperand! + secondOperand).toString(); break;
+            case "÷":
+              display = (firstOperand! / secondOperand).toString();
+              break;
+            case "×":
+              display = (firstOperand! * secondOperand).toString();
+              break;
+            case "-":
+              display = (firstOperand! - secondOperand).toString();
+              break;
+            case "+":
+              display = (firstOperand! + secondOperand).toString();
+              break;
           }
-          if (display.endsWith(".0")) display = display.substring(0, display.length - 2);
+          if (display.endsWith(".0"))
+            display = display.substring(0, display.length - 2);
           firstOperand = null;
           operator = null;
           shouldReset = true;
@@ -74,7 +85,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               child: Text(
                 display,
                 textAlign: TextAlign.right,
-                style: const TextStyle(fontSize: 60, color: Colors.white, fontWeight: FontWeight.w300),
+                style: const TextStyle(
+                  fontSize: 60,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
             ),
             for (int row = 0; row < 4; row++)
@@ -89,8 +104,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           label: col == 3
                               ? symbol[row]
                               : row == 0
-                                  ? ctrlSymbol[col]
-                                  : '${[7, 8, 9, 4, 5, 6, 1, 2, 3][(row - 1) * 3 + col]}',
+                              ? ctrlSymbol[col]
+                              : '${[7, 8, 9, 4, 5, 6, 1, 2, 3][(row - 1) * 3 + col]}',
                         ),
                       ),
                   ],
@@ -114,8 +129,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 
-  Widget _buildTile({required int row, required int col, required String label}) {
-    Color bgColor = const Color(0xFF333333); 
+  Widget _buildTile({
+    required int row,
+    required int col,
+    required String label,
+  }) {
+    Color bgColor = const Color(0xFF333333);
     Color textColor = Colors.white;
 
     if (row == 0) {

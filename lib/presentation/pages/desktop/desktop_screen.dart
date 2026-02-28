@@ -56,7 +56,7 @@ class _DesktopState extends State<Desktop> {
       name: 'Music',
       icon: CupertinoIcons.music_note,
       color: Color(0xFFFF2D55),
-      child: MainScreen(),
+      child: MainMusicScreen(),
     ),
     DesktopApp(
       name: 'Notes',
