@@ -70,12 +70,6 @@ class _DesktopState extends State<Desktop> {
       color: Color(0xFFFF3B30),
       child: MacOSCalendarScreen(),
     ),
-    // DesktopApp(
-    //   name: 'Settings',
-    //   icon: CupertinoIcons.settings,
-    //   color: Color(0xFF8E8E93),
-    //   child: Container(),
-    // ),
     DesktopApp(
       name: 'Calculator',
       icon: Icons.calculate,
