@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:aman_protfolio/presentation/pages/apps/musicplayer/screens/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +9,6 @@ import '../apps/calculator/calculator.dart';
 import '../apps/finder/pdf_viewer.dart';
 import '../apps/mail/mail_screen.dart';
 import '../apps/messanger/messanger.dart';
-import '../apps/musicplayer/screens/main_screen.dart';
 import '../apps/notes/notes.dart';
 import '../apps/web/webpage.dart';
 import '../desktop/models/desktop_app.dart';
@@ -57,7 +57,7 @@ class _MobileScreenState extends State<MobileScreen> {
       name: 'Music',
       icon: CupertinoIcons.music_note,
       color: Color(0xFFFF2D55),
-      child: MainScreen(),
+      child: MainMusicScreen(),
     ),
     DesktopApp(
       name: 'Notes',
@@ -88,9 +88,7 @@ class _MobileScreenState extends State<MobileScreen> {
   void _openApp(DesktopApp app) {
     Navigator.push(
       context,
-      CupertinoPageRoute(
-        builder: (context) => app.child,
-      ),
+      CupertinoPageRoute(builder: (context) => app.child),
     );
   }
 
@@ -114,7 +112,7 @@ class _MobileScreenState extends State<MobileScreen> {
               children: [
                 // Fake iOS Status Bar
                 _buildFakeStatusBar(),
-                
+
                 const SizedBox(height: 20),
 
                 // 3. App Grid
@@ -123,12 +121,14 @@ class _MobileScreenState extends State<MobileScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: GridView.builder(
                       physics: const BouncingScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        mainAxisSpacing: 25,
-                        crossAxisSpacing: 15,
-                        childAspectRatio: 0.8, // Adjusts icon+label height ratio
-                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            mainAxisSpacing: 25,
+                            crossAxisSpacing: 15,
+                            childAspectRatio:
+                                0.8, // Adjusts icon+label height ratio
+                          ),
                       itemCount: gridApps.length,
                       itemBuilder: (context, index) {
                         return _buildAppIcon(gridApps[index]);
@@ -166,7 +166,9 @@ class _MobileScreenState extends State<MobileScreen> {
         ),
       ),
       child: Container(
-        color: Colors.black.withOpacity(0.1), // Slight dimming for better contrast
+        color: Colors.black.withOpacity(
+          0.1,
+        ), // Slight dimming for better contrast
       ),
     );
   }
@@ -188,7 +190,11 @@ class _MobileScreenState extends State<MobileScreen> {
           ),
           Row(
             children: [
-              Icon(CupertinoIcons.antenna_radiowaves_left_right, color: Colors.white, size: 16),
+              Icon(
+                CupertinoIcons.antenna_radiowaves_left_right,
+                color: Colors.white,
+                size: 16,
+              ),
               const SizedBox(width: 5),
               Icon(CupertinoIcons.wifi, color: Colors.white, size: 16),
               const SizedBox(width: 5),
@@ -212,7 +218,9 @@ class _MobileScreenState extends State<MobileScreen> {
             width: 60,
             decoration: BoxDecoration(
               color: app.color,
-              borderRadius: BorderRadius.circular(14), // iOS rounded super-ellipse style
+              borderRadius: BorderRadius.circular(
+                14,
+              ), // iOS rounded super-ellipse style
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.3),
@@ -233,12 +241,7 @@ class _MobileScreenState extends State<MobileScreen> {
               color: Colors.white,
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              shadows: [
-                Shadow(
-                  color: Colors.black54,
-                  blurRadius: 2,
-                ),
-              ],
+              shadows: [Shadow(color: Colors.black54, blurRadius: 2)],
             ),
           ),
         ],
