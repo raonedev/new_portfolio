@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:aman_protfolio/common/liquide_glass_container.dart';
 
 import '../apps/calculator/calculator.dart';
 import '../apps/mail/mail_screen.dart';
@@ -192,16 +191,10 @@ class _DesktopState extends State<Desktop> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: AnimatedLiquidGlass(
+              child: Container(
                 width: 500,
                 height: 300,
-                cornerRadius: 40,
-                config: const LiquidGlassConfig(
-                  glassColor: Color(0x0fffffff),
-                  thickness: 18,
-                  chromaticAberration: 0.3,
-                  lightAngle: 1.0,
-                ),
+                color: Colors.blue.shade100,
                 child: Center(
                   child: const Text(
                     "Liquid Glass",
