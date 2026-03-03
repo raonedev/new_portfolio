@@ -1,7 +1,9 @@
 import 'dart:ui';
-import 'package:aman_protfolio/presentation/pages/apps/calculator/calculator.dart';
-import 'package:aman_protfolio/presentation/pages/apps/mail/mail_screen.dart';
-import 'package:aman_protfolio/presentation/pages/apps/musicplayer/screens/main_screen.dart';
+import 'package:aman_protfolio/common/liquide_glass_container.dart';
+
+import '../apps/calculator/calculator.dart';
+import '../apps/mail/mail_screen.dart';
+import '../apps/musicplayer/screens/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -184,66 +186,102 @@ class _DesktopState extends State<Desktop> {
       alignment: Alignment.topRight,
       child: Padding(
         padding: const EdgeInsets.only(top: 48, right: 20),
-        child: SizedBox(
-          width: 100,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: List.generate((apps.length / 1).ceil().clamp(0, 6), (
-              index,
-            ) {
-              if (index >= apps.length) return SizedBox.shrink();
-              final app = apps[index];
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (!openWindows.any((w) => w.name == app.name)) {
-                        openWindows.add(app);
-                      }
-                    });
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        height: 64,
-                        width: 64,
-                        decoration: BoxDecoration(
-                          color: app.color.withValues(alpha: 0.9),
-                          borderRadius: BorderRadius.circular(14),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.2),
-                              blurRadius: 8,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Icon(app.icon, size: 36, color: Colors.white),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        app.name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(
-                              color: Colors.black.withValues(alpha: 0.5),
-                              blurRadius: 4,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: AnimatedLiquidGlass(
+                width: 500,
+                height: 300,
+                cornerRadius: 40,
+                config: const LiquidGlassConfig(
+                  glassColor: Color(0x0fffffff),
+                  thickness: 18,
+                  chromaticAberration: 0.3,
+                  lightAngle: 1.0,
+                ),
+                child: Center(
+                  child: const Text(
+                    "Liquid Glass",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              );
-            }),
-          ),
+              ),
+            ),
+            SizedBox(
+              width: 100,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ...List.generate((apps.length / 1).ceil().clamp(0, 6), (
+                    index,
+                  ) {
+                    if (index >= apps.length) return SizedBox.shrink();
+                    final app = apps[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (!openWindows.any((w) => w.name == app.name)) {
+                              openWindows.add(app);
+                            }
+                          });
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              height: 64,
+                              width: 64,
+                              decoration: BoxDecoration(
+                                color: app.color.withValues(alpha: 0.9),
+                                borderRadius: BorderRadius.circular(14),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.2),
+                                    blurRadius: 8,
+                                    offset: Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Icon(
+                                app.icon,
+                                size: 36,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              app.name,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withValues(alpha: 0.5),
+                                    blurRadius: 4,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

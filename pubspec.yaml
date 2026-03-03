@@ -42,6 +42,7 @@ dependencies:
   table_calendar: ^3.2.0
   syncfusion_flutter_pdfviewer: ^32.1.22
   web: ^1.1.1
+  flutter_shaders: ^0.1.3
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,15 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # Shaders must be indented 2 spaces under 'flutter:'
+  # and the file path must be indented 4 spaces.
+  shaders:
+    - shaders/liquid_glass_geometry_blended.frag
+    - shaders/liquid_glass_filter.frag
+    - shaders/liquid_glass_arbitrary.frag
+    - shaders/liquid_glass_final_render.frag
+    - shaders/fake_glass_color.frag
 
   # To add assets to your application, add an assets section, like this:
   assets:
