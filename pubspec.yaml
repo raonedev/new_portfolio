@@ -42,6 +42,7 @@ dependencies:
   table_calendar: ^3.2.0
   syncfusion_flutter_pdfviewer: ^32.1.22
   web: ^1.1.1
+  flutter_shaders: ^0.1.3
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +68,8 @@ flutter:
 
   # Shaders must be indented 2 spaces under 'flutter:'
   # and the file path must be indented 4 spaces.
+  shaders:
+    - assets/shaders/liquid_glass_interactive.frag
 
   # To add assets to your application, add an assets section, like this:
   assets:

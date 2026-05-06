@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import '../../../common/liquid_glass.dart';
 import '../apps/calculator/calculator.dart';
 import '../apps/mail/mail_screen.dart';
 import '../apps/musicplayer/screens/main_screen.dart';
@@ -191,10 +192,9 @@ class _DesktopState extends State<Desktop> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Container(
-                width: 500,
-                height: 300,
-                color: Colors.blue.shade100,
+              child: LiquidGlassContainer(
+                shapeType: LiquidGlassShapeType.squircle,
+                borderRadius: 12,
                 child: Center(
                   child: const Text(
                     "Liquid Glass",
